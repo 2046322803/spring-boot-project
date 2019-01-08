@@ -1,0 +1,12 @@
+package com.zyj.spring.boot;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class MMXApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(MMXApplication.class, args);
+	}
+}
