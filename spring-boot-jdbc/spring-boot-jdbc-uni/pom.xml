@@ -4,11 +4,11 @@
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>com.zyj</groupId>
-		<artifactId>spring-boot-pom</artifactId>
-		<version>1.0.0-SNAPSHOT</version>
+		<artifactId>spring-boot-jdbc</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
 	</parent>
 	<artifactId>spring-boot-jdbc-uni</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0.0-SNAPSHOT</version>
 	<name>spring-boot-jdbc-uni</name>
 	<description>spring-boot-jdbc-uni project</description>
 	<dependencies>
