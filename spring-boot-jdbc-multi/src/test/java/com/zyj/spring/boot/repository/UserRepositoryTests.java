@@ -16,15 +16,15 @@ public class UserRepositoryTests {
 	@Autowired
 	private UserRepository userRepository;
 	@Autowired
-    private JdbcTemplate primaryJdbcTemplate;
+	private JdbcTemplate primaryJdbcTemplate;
 	@Autowired
 	private JdbcTemplate secondaryJdbcTemplate;
 
 	@Test
 	public void testSave() {
-		User user =new User("smile","123456",30);
-		userRepository.save(user,primaryJdbcTemplate);
-		userRepository.save(user,secondaryJdbcTemplate);
+		User user = new User("smile", "123456", 30);
+		userRepository.save(user, primaryJdbcTemplate);
+		userRepository.save(user, secondaryJdbcTemplate);
 	}
 
 }
