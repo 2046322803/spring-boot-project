@@ -1,13 +1,8 @@
 package com.zyj.spring.boot.param;
 
-import org.hibernate.validator.constraints.Length;
-
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
+import org.hibernate.validator.constraints.Length;
 
 
 public class LoginParam {

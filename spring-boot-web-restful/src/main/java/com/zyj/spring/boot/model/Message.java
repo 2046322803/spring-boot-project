@@ -2,9 +2,6 @@ package com.zyj.spring.boot.model;
 
 import java.util.Calendar;
 
-import javax.validation.constraints.NotEmpty;
-
-
 public class Message {
 	private Long id;
 	private String text;
