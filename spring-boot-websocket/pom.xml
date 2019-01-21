@@ -7,20 +7,14 @@
 		<artifactId>spring-boot-pom</artifactId>
 		<version>1.0.0-SNAPSHOT</version>
 	</parent>
-	<artifactId>spring-boot-websocket-h5</artifactId>
+	<artifactId>spring-boot-websocket</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>spring-boot-websocket-h5</name>
-	<description>spring-boot-websocket-h5 project</description>
-	<dependencies>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-web</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-websocket</artifactId>
-		</dependency>
-	</dependencies>
+	<packaging>pom</packaging>
+	<name>spring-boot-websocket</name>
+	<description>spring-boot-websocket project</description>
+	<modules>
+		<module>spring-boot-websocket-h5</module>
+	</modules>
 	<build>
 		<plugins>
 			<plugin>

@@ -4,11 +4,11 @@
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>com.zyj</groupId>
-		<artifactId>spring-boot-pom</artifactId>
-		<version>1.0.0-SNAPSHOT</version>
+		<artifactId>spring-boot-websocket</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
 	</parent>
 	<artifactId>spring-boot-websocket-h5</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0.0-SNAPSHOT</version>
 	<name>spring-boot-websocket-h5</name>
 	<description>spring-boot-websocket-h5 project</description>
 	<dependencies>
