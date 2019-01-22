@@ -13,6 +13,7 @@ import com.zyj.spring.boot.service.CustomersInterface;
 public class CustomersInterfaceImpl implements CustomersInterface {
 
 	Logger logger = LoggerFactory.getLogger(this.getClass());
+	
 	@Autowired
 	private CustomerRepository customerRepository;
 

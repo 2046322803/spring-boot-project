@@ -6,7 +6,6 @@ import com.zyj.spring.boot.model.Customer;
 
 public interface CustomersInterface {
 
-    public List<Customer> searchCity(Integer pageNumber, Integer pageSize, String searchContent);
-
+	public List<Customer> searchCity(Integer pageNumber, Integer pageSize, String searchContent);
 
 }

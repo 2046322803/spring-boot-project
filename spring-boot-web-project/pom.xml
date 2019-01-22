@@ -10,19 +10,19 @@
 	<artifactId>spring-boot-web-project</artifactId>
 	<packaging>pom</packaging>
 	<name>spring-boot-web-project</name>
-	<description>spring-boot-web-project project</description>
+	<description>spring-boot-web-project</description>
 	<modules>
 		<module>spring-boot-fastDFS</module>
 		<module>spring-boot-file-upload</module>
 		<module>spring-boot-jsp</module>
+		<module>spring-boot-mail</module>
+		<module>spring-boot-quartz</module>
 		<module>spring-boot-swagger</module>
+		<module>spring-boot-task</module>
 		<module>spring-boot-thymeleaf</module>
 		<module>spring-boot-thymeleaf-layout</module>
 		<module>spring-boot-web</module>
 		<module>spring-boot-web-restful</module>
 		<module>spring-boot-web-websocket</module>
-		<module>spring-boot-task</module>
-		<module>spring-boot-mail</module>
-		<module>spring-boot-quartz</module>
 	</modules>
 </project>
