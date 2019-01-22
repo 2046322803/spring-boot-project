@@ -22,5 +22,7 @@
 		<module>spring-boot-web-restful</module>
 		<module>spring-boot-web-websocket</module>
 		<module>spring-boot-task</module>
+		<module>spring-boot-mail</module>
+		<module>spring-boot-quartz</module>
 	</modules>
 </project>
