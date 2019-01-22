@@ -5,10 +5,9 @@
 	<parent>
 		<groupId>com.zyj</groupId>
 		<artifactId>spring-boot-web-project</artifactId>
-		<version>0.0.1-SNAPSHOT</version>
+		<version>1.0.0-SNAPSHOT</version>
 	</parent>
 	<artifactId>spring-boot-file-upload</artifactId>
-	<version>1.0.0-SNAPSHOT</version>
 	<name>spring-boot-file-upload</name>
 	<description>spring-boot-file-upload project</description>
 	<dependencies>

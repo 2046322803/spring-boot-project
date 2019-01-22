@@ -18,5 +18,6 @@
 		<module>spring-boot-mybatis</module>
 		<module>spring-boot-redis-project</module>
 		<module>spring-boot-mongodb</module>
+		<module>spring-boot-elasticsearch-project</module>
 	</modules>
 </project>
