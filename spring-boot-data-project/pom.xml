@@ -16,5 +16,7 @@
 		<module>spring-boot-jdbc</module>
 		<module>spring-boot-jpa</module>
 		<module>spring-boot-mybatis</module>
+		<module>spring-boot-redis-project</module>
+		<module>spring-boot-mongodb</module>
 	</modules>
 </project>

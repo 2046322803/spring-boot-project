@@ -5,12 +5,11 @@
 	<parent>
 		<groupId>com.zyj</groupId>
 		<artifactId>spring-boot-mongodb</artifactId>
-		<version>0.0.1-SNAPSHOT</version>
+		<version>1.0.0-SNAPSHOT</version>
 	</parent>
-	<artifactId>spring-boot-mongodb-template</artifactId>
-	<version>1.0.0-SNAPSHOT</version>
-	<name>spring-boot-mongodb-template</name>
-	<description>spring-boot-mongodb-template project</description>
+	<artifactId>spring-boot-mongodb-multi</artifactId>
+	<name>spring-boot-mongodb-multi</name>
+	<description>spring-boot-mongodb-multi project</description>
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
