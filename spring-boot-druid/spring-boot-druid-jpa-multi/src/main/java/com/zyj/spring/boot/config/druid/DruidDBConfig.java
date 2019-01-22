@@ -1,16 +1,17 @@
 package com.zyj.spring.boot.config.druid;
 
-import com.alibaba.druid.pool.DruidDataSource;
+import java.sql.SQLException;
+
+import javax.sql.DataSource;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 
-import java.sql.SQLException;
-import javax.sql.DataSource;
+import com.alibaba.druid.pool.DruidDataSource;
 
 @Configuration
 public class DruidDBConfig {

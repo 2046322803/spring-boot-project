@@ -7,14 +7,13 @@
 		<artifactId>spring-boot-pom</artifactId>
 		<version>1.0.0-SNAPSHOT</version>
 	</parent>
-	<artifactId>spring-boot-jdbc</artifactId>
+	<artifactId>spring-boot-jpa</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>pom</packaging>
-	<name>spring-boot-jdbc</name>
-	<description>spring-boot-jdbc project</description>
+	<name>spring-boot-jpa</name>
+	<description>spring-boot-jpa project</description>
 	<modules>
-		<module>spring-boot-jdbc-nui</module>
-		<module>spring-boot-jdbc-multi</module>
-		<module>spring-boot-jpa-thymeleaf</module>
+		<module>spring-boot-jpa-uni</module>
+		<module>spring-boot-jpa-multi</module>
 	</modules>
 </project>
