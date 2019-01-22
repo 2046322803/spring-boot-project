@@ -1,0 +1,26 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.zyj</groupId>
+		<artifactId>spring-boot-pom</artifactId>
+		<version>1.0.0-SNAPSHOT</version>
+	</parent>
+	<artifactId>spring-boot-web-project</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>pom</packaging>
+	<name>spring-boot-web-project</name>
+	<description>spring-boot-web-project project</description>
+	<modules>
+		<module>spring-boot-fastDFS</module>
+		<module>spring-boot-file-upload</module>
+		<module>spring-boot-jsp</module>
+		<module>spring-boot-swagger</module>
+		<module>spring-boot-thymeleaf</module>
+		<module>spring-boot-thymeleaf-layout</module>
+		<module>spring-boot-web</module>
+		<module>spring-boot-web-restful</module>
+		<module>spring-boot-web-websocket</module>
+	</modules>
+</project>
