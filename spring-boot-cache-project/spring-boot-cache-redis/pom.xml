@@ -5,10 +5,9 @@
 	<parent>
 		<groupId>com.zyj</groupId>
 		<artifactId>spring-boot-cache-project</artifactId>
-		<version>0.0.1-SNAPSHOT</version>
+		<version>1.0.0-SNAPSHOT</version>
 	</parent>
 	<artifactId>spring-boot-cache-redis</artifactId>
-	<version>1.0.0-SNAPSHOT</version>
 	<name>spring-boot-cache-redis</name>
 	<description>spring-boot-cache-redis project</description>
 	<dependencies>

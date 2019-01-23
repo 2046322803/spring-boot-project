@@ -12,12 +12,12 @@
 	<name>spring-boot-data-project</name>
 	<description>spring-boot-data-project project</description>
 	<modules>
-		<module>spring-boot-druid</module>
-		<module>spring-boot-jdbc</module>
-		<module>spring-boot-jpa</module>
-		<module>spring-boot-mybatis</module>
+		<module>spring-boot-druid-project</module>
+		<module>spring-boot-jdbc-project</module>
+		<module>spring-boot-jpa-project</module>
+		<module>spring-boot-mybatis-project</module>
 		<module>spring-boot-redis-project</module>
-		<module>spring-boot-mongodb</module>
+		<module>spring-boot-mongodb--project</module>
 		<module>spring-boot-elasticsearch-project</module>
 	</modules>
 </project>
