@@ -11,4 +11,13 @@
 	<packaging>pom</packaging>
 	<name>spring-boot-examples</name>
 	<description>spring-boot-examples project</description>
+	<modules>
+		<module>spring-boot-activemq-examples</module>
+		<module>spring-boot-cache-examples</module>
+		<module>spring-boot-data-examples</module>
+		<module>spring-boot-dubbo-examples</module>
+		<module>spring-boot-memcache</module>
+		<module>spring-boot-rabbitmq</module>
+		<module>spring-boot-web-examples</module>
+	</modules>
 </project>
