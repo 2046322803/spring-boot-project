@@ -52,11 +52,6 @@ public class UserController {
 		if (!file.isEmpty()) {
 			try {
 				byte[] bytes = file.getBytes();
-
-				// picture = UPLOADED_FOLDER + file.getOriginalFilename();
-				// Path path = Paths.get(picture);
-				// Files.write(path, bytes);
-
 				String key = System.currentTimeMillis() + file.getOriginalFilename();
 				ByteArrayInputStream is = new ByteArrayInputStream(bytes);
 				long contentLength = is.available();
@@ -72,7 +67,20 @@ public class UserController {
 	}
 
 	@RequestMapping("/update")
-	public String update(@ModelAttribute("user") User user) {
+	public String update(@ModelAttribute("user") User user, @RequestParam("file") MultipartFile file) {
+		if (!file.isEmpty()) {
+			String picture = "";
+			try {
+				byte[] bytes = file.getBytes();
+				String key = System.currentTimeMillis() + file.getOriginalFilename();
+				ByteArrayInputStream is = new ByteArrayInputStream(bytes);
+				long contentLength = is.available();
+				picture = fileStorageService.upload(key, is, contentLength);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			user.setPicture(picture);
+		}
 		userService.merge(user);
 		return "redirect:/system/user/list/1";
 	}

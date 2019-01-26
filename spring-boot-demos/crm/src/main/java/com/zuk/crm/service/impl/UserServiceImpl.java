@@ -1,9 +1,7 @@
 package com.zuk.crm.service.impl;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -11,6 +9,7 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -20,16 +19,8 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 
-import com.zuk.crm.bean.AclBean;
-import com.zuk.crm.dao.MenuDao;
-import com.zuk.crm.dao.OperateDao;
 import com.zuk.crm.dao.RoleDao;
-import com.zuk.crm.dao.RoleMenuDao;
-import com.zuk.crm.dao.RoleOperateDao;
 import com.zuk.crm.dao.UserDao;
-import com.zuk.crm.entity.Menu;
-import com.zuk.crm.entity.Operate;
-import com.zuk.crm.entity.Role;
 import com.zuk.crm.entity.User;
 import com.zuk.crm.service.UserService;
 
@@ -43,18 +34,6 @@ public class UserServiceImpl implements UserService {
 	@Autowired
 	private RoleDao roleDao;
 
-	@Autowired
-	private MenuDao menuDao;
-
-	@Autowired
-	private OperateDao operateDao;
-
-	@Autowired
-	private RoleMenuDao roleMenuDao;
-
-	@Autowired
-	private RoleOperateDao roleOperateDao;
-
 	@Override
 	public void init() {
 		long count = userDao.count();
@@ -66,58 +45,6 @@ public class UserServiceImpl implements UserService {
 			String roleId = roleDao.findByCode("SUPER").getId();
 			user.setRoleId(roleId);
 			user = userDao.save(user);
-		}
-	}
-
-	@Override
-	public AclBean validate(User user) {
-		User ruser = userDao.findByNameAndPassword(user.getName(), user.getPassword());
-		if (ruser == null) {
-			return null;
-		} else {
-			AclBean aclBean = new AclBean();
-			aclBean.setUserId(ruser.getId());
-			aclBean.setUserName(ruser.getName());
-			aclBean.setPassword(ruser.getPassword());
-			aclBean.setPicture(ruser.getPicture());
-			Role role = roleDao.getOne(ruser.getRoleId());
-			String roleName = role.getCode();
-			aclBean.setRoleName(roleName);
-
-			List<Menu> pmenuList = new ArrayList<Menu>();
-			List<Menu> cmenuList = new ArrayList<Menu>();
-			Set<Object> operateSet = new HashSet<Object>();
-			if ("SUPER".equals(roleName)) {
-				List<Menu> menuList = menuDao.findAll();
-				for (Menu menu : menuList) {
-					if (menu.getParentId() == null || "".equals(menu.getParentId())) {
-						pmenuList.add(menu);
-					} else {
-						cmenuList.add(menu);
-					}
-				}
-				List<Operate> operateList = operateDao.findAll();
-				for (Operate operate : operateList) {
-					operateSet.add(operate.getHref());
-				}
-			} else {
-				List<Menu> menuList = roleMenuDao.queryMenuByRoleId(role.getId());
-				for (Menu menu : menuList) {
-					if (StringUtils.isEmpty(menu.getParentId())) {
-						pmenuList.add(menu);
-					} else {
-						cmenuList.add(menu);
-					}
-				}
-				List<Operate> operateList = roleOperateDao.queryOperateByRoleId(role.getId());
-				for (Operate operate : operateList) {
-					operateSet.add(operate.getHref());
-				}
-			}
-			aclBean.setPmenuList(pmenuList);
-			aclBean.setCmenuList(cmenuList);
-			aclBean.setOperateSet(operateSet);
-			return aclBean;
 		}
 	}
 
@@ -151,7 +78,14 @@ public class UserServiceImpl implements UserService {
 		page = page - 1 < 0 ? 0 : page - 1;
 		Pageable pageable = PageRequest.of(page, 10, sort);
 
-		model.addAttribute("userPage", userDao.findAll(spec, pageable));
+		Page<User> userPage = userDao.findAll(spec, pageable);
+
+		List<User> userList = userPage.getContent();
+		for (User user : userList) {
+			user.setRoleName(roleDao.findById(user.getRoleId()).get().getName());
+		}
+
+		model.addAttribute("userPage", userPage);
 	}
 
 	@Override
@@ -163,7 +97,8 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public void toEdit(Model model, String id) {
 		model.addAttribute("roleList", roleDao.findAll());
-		model.addAttribute("user", userDao.findById(id));
+		// TODO findById(id).get()
+		model.addAttribute("user", userDao.findById(id).get());
 	}
 
 	@Override
