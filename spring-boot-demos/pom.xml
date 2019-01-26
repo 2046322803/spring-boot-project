@@ -14,5 +14,6 @@
 	<modules>
 		<module>user-manage</module>
 		<module>user-manage-plus</module>
+		<module>crm</module>
 	</modules>
 </project>

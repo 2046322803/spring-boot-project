@@ -1,0 +1,13 @@
+<#include "/include/_layout.html" />
+<@layout mainMenu="system" currentMenu="menu">
+<ol class="breadcrumb">
+  <li><span class="glyphicon glyphicon-home"></span> <a href="/home">Home</a></li>
+  <li><span class="glyphicon glyphicon-list"></span> <a href="/system/menu/list/1">Menu</a></li>
+  <li class="active"><span class="glyphicon glyphicon-edit"></span> Edit</li>
+</ol>
+<div class="container-fluid">
+  <form class="form-horizontal" role="form" action="/system/menu/update" method="post">
+    <#include "_form.html" />
+  </form>
+</div>
+</@layout>
