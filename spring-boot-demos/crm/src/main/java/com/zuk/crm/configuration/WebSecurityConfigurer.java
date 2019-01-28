@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.access.AccessDecisionManager;
@@ -52,6 +53,10 @@ import org.springframework.security.web.util.matcher.RequestMatcher;
 public class WebSecurityConfigurer extends WebSecurityConfigurerAdapter {
 
 	private static final Logger logger = LoggerFactory.getLogger(WebSecurityConfigurer.class);
+
+	// 注入配置的钥匙
+	@Value("${system.user.password.secret}")
+	private String secret;
 
 	@Autowired
 	private UserDetailsService userDetailsService;
@@ -101,6 +106,8 @@ public class WebSecurityConfigurer extends WebSecurityConfigurerAdapter {
 		// auth.jdbcAuthentication().dataSource(dataSource).usersByUsernameQuery(query).authoritiesByUsernameQuery(query);
 
 		// 3.注入userDetailsService，需要实现userDetailsService接口
+		// 密码编码器
+		// PasswordEncoder passwordEncoder = new Pbkdf2PasswordEncoder(secret);
 		auth.userDetailsService(userDetailsService) // 注册自己定制的UserDetailsService
 				.passwordEncoder(passwordEncoder); // 配置密码加密器
 	}
@@ -110,10 +117,12 @@ public class WebSecurityConfigurer extends WebSecurityConfigurerAdapter {
 	 */
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.authorizeRequests()
+
+		http.authorizeRequests()// 限定只对签名成功的用户请求
 				// .antMatchers("/static/**")
-				// .permitAll()//允许所有人访问
-				// .anyRequest().authenticated()
+				// .permitAll()// 允许所有人访问
+				// .anyRequest()// 限定所有请求
+				// .authenticated()// 对所有签名成功的用户允许方法
 
 				.withObjectPostProcessor(new ObjectPostProcessor<FilterSecurityInterceptor>() {
 
@@ -124,6 +133,9 @@ public class WebSecurityConfigurer extends WebSecurityConfigurerAdapter {
 						return o;
 					}
 				}) //
+
+				.and().requiresChannel().anyRequest().requiresSecure()// 使用HTTPS请求，需要生证书
+
 				.and().formLogin()// 通过formLogin()配下的函数对登录form进行配置
 				.loginPage("/login") // 指定登录页面
 				.usernameParameter("name") // 指定页面中对应用户名的参数名称
@@ -134,9 +146,11 @@ public class WebSecurityConfigurer extends WebSecurityConfigurerAdapter {
 				.failureHandler(authenticationFailureHandler) // 登录失败处理器
 				.successHandler(authenticationSuccessHandler) // 登录成功处理器
 
+				.and().rememberMe().tokenValiditySeconds(86400).key("remember-me-key")// 启用remember me功能
+
 				.and().logout()// 通过logout()配下的函数对注销进行配置
 				.logoutRequestMatcher(logoutRequestMatcher)// 设置注销用的请求URL
-				// .logoutSuccessUrl("")//设置注销成功后的跳转URL
+				// .logoutSuccessUrl("")// 设置注销成功后的跳转URL
 				.deleteCookies("JSESSIONID")// 消除Cookie
 				.invalidateHttpSession(true)// 销毁Session
 				.permitAll()// 声明用户退出页面允许所有人访问
@@ -146,9 +160,12 @@ public class WebSecurityConfigurer extends WebSecurityConfigurerAdapter {
 				// .maximumSessions(maximumSessions)//同一用户session上限设定 *比如同一个用户 多次登录
 				// .expiredUrl(expiredUrl)
 
-				.and().csrf().disable()// 关闭csrf，默认开启。框架默认开启了csrf，这样我们的ajax和表单提交等都需要提供一个token
-				.exceptionHandling()//
-				.accessDeniedHandler(accessDeniedHandler);
+				// .and().httpBasic()// 启用HTTP基础认证，REST风格的网站就比较适合这样的验证
+
+				.and().exceptionHandling().accessDeniedHandler(accessDeniedHandler)
+
+				.and().csrf().disable();// 关闭csrf，默认开启。框架默认开启了csrf，这样我们的ajax和表单提交等都需要提供一个token
+
 	}
 
 	@Bean
