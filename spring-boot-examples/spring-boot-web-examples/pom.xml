@@ -24,11 +24,5 @@
 		<module>spring-boot-web</module>
 		<module>spring-boot-web-restful</module>
 		<module>spring-boot-web-websocket</module>
-		<module>spring-boot-security</module>
-		<module>spring-boot-actuator</module>
-		<module>spring-boot-test</module>
-		<module>spring-boot-package</module>
-		<module>spring-boot-docker</module>
-		<module>spring-boot-admin</module>
 	</modules>
 </project>
