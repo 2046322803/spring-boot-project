@@ -19,6 +19,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class RedisService {
 	private Logger logger = LoggerFactory.getLogger(RedisService.class);
+	
 	@Autowired
 	private RedisTemplate redisTemplate;
 

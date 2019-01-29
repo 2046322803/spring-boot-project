@@ -1,18 +1,18 @@
 package com.spring.boot.repository;
 
+import java.text.DateFormat;
+import java.util.Date;
+
+import javax.annotation.Resource;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.spring.boot.model.User;
 import com.spring.boot.repository.test1.UserTest1Repository;
 import com.spring.boot.repository.test2.UserTest2Repository;
-
-import javax.annotation.Resource;
-import java.text.DateFormat;
-import java.util.Date;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest

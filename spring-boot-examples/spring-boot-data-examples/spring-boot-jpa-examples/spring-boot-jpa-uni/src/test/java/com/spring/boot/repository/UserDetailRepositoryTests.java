@@ -40,6 +40,7 @@ public class UserDetailRepositoryTests {
 	public void testSaveUserDetail() {
 		Date date = new Date();
 		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG);
+		@SuppressWarnings("unused")
 		String formattedDate = dateFormat.format(date);
 		UserDetail userDetail = new UserDetail();
 		userDetail.setUserId(3L);
