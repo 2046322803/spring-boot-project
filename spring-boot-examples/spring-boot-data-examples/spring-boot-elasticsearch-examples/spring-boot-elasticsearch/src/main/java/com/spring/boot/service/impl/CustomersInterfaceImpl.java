@@ -4,18 +4,17 @@ import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import com.spring.boot.model.Customer;
-import com.spring.boot.repository.CustomerRepository;
 import com.spring.boot.service.CustomersInterface;
 
 public class CustomersInterfaceImpl implements CustomersInterface {
 
 	Logger logger = LoggerFactory.getLogger(this.getClass());
 	
-	@Autowired
-	private CustomerRepository customerRepository;
+	/*
+	 * @Autowired private CustomerRepository customerRepository;
+	 */
 
 	@Override
 	public List<Customer> searchCity(Integer pageNumber, Integer pageSize, String searchContent) {

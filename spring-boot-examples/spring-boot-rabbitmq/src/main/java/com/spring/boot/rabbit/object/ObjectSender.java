@@ -6,8 +6,6 @@ import org.springframework.stereotype.Component;
 
 import com.spring.boot.model.User;
 
-import java.util.Date;
-
 @Component
 public class ObjectSender {
 

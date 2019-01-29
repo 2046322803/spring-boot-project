@@ -7,7 +7,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.spring.boot.rabbit.fanout.FanoutSender;
-import com.spring.boot.rabbit.topic.TopicSender;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest

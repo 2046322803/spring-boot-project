@@ -1,12 +1,14 @@
 package com.spring.boot.rabbit.hello;
 
+import java.util.Date;
+
 import org.springframework.amqp.core.AmqpTemplate;
-import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.Date;
-
+/**
+ * rabbit消息发送者
+ */
 @Component
 public class HelloSender {
 
