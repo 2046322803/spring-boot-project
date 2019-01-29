@@ -45,7 +45,7 @@
         <td>${x.name}</td>
         <td>
 	      <a href="/system/role/edit/${x.id}"><span class="glyphicon glyphicon-edit"></span> Edit</a>
-          <a href="/system/role/delete/${x.id}"><span class="glyphicon glyphicon-remove"></span> Delete</a>
+          <a href="/system/role/delete/${x.id}" onclick="javascript:if(!confirm('确定删除？')) { return false; }"><span class="glyphicon glyphicon-remove"></span> Delete</a>
         </td>
       </tr>
 	</#list>

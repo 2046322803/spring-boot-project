@@ -45,7 +45,7 @@
         <td>${(x.sort)!}</td>
         <td>
 	      <a href="/system/operate/edit/${x.id}"><span class="glyphicon glyphicon-edit"></span> Edit</a>
-          <a href="/system/operate/delete/${x.id}"><span class="glyphicon glyphicon-remove"></span> Delete</a>
+          <a href="/system/operate/delete/${x.id}" onclick="javascript:if(!confirm('确定删除？')) { return false; }"><span class="glyphicon glyphicon-remove"></span> Delete</a>
         </td>
       </tr>
 	</#list>
