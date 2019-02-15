@@ -27,81 +27,84 @@ import java.util.List;
 
 @Controller
 public class UserController {
-    private final Logger logger = LoggerFactory.getLogger(this.getClass());
-    @Autowired
-    private UserRepository userRepository;
+	
+	private final Logger logger = LoggerFactory.getLogger(this.getClass());
+	
+	@Autowired
+	private UserRepository userRepository;
 
-    @RequestMapping("/list")
-    @Cacheable(value="user_list")
-    public String list(Model model,@RequestParam(value = "page", defaultValue = "0") Integer page,
-                       @RequestParam(value = "size", defaultValue = "6") Integer size) {
-        Sort sort = new Sort(Sort.Direction.DESC, "id");
-        Pageable pageable = PageRequest.of(page, size, sort);
-        Page<User> users=userRepository.findAll(pageable);
-        model.addAttribute("users", users);
-        logger.info("user list "+ users.getContent());
-        return "user/list";
-    }
+	@RequestMapping("/list")
+	@Cacheable(value = "user_list")
+	public String list(Model model, @RequestParam(value = "page", defaultValue = "0") Integer page,
+			@RequestParam(value = "size", defaultValue = "6") Integer size) {
+		Sort sort = new Sort(Sort.Direction.DESC, "id");
+		Pageable pageable = PageRequest.of(page, size, sort);
+		Page<User> users = userRepository.findAll(pageable);
+		model.addAttribute("users", users);
+		logger.info("user list " + users.getContent());
+		return "user/list";
+	}
 
-    @RequestMapping("/toAdd")
-    public String toAdd() {
-        return "user/userAdd";
-    }
+	@RequestMapping("/toAdd")
+	public String toAdd() {
+		return "user/userAdd";
+	}
 
-    @RequestMapping("/add")
-    public String add(@Valid UserParam userParam,BindingResult result, ModelMap model) {
-        String errorMsg="";
-        if(result.hasErrors()) {
-            List<ObjectError> list = result.getAllErrors();
-            for (ObjectError error : list) {
-                errorMsg=errorMsg + error.getCode() + "-" + error.getDefaultMessage() +";";
-            }
-            model.addAttribute("errorMsg",errorMsg);
-            return "user/userAdd";
-        }
-        User u= userRepository.findByUserNameOrEmail(userParam.getUserName(),userParam.getEmail());
-        if(u!=null){
-            model.addAttribute("errorMsg","用户已存在!");
-            return "user/userAdd";
-        }
-        User user=new User();
-        BeanUtils.copyProperties(userParam,user);
-        user.setRegTime(new Date());
-        user.setUserType("user");
-        userRepository.save(user);
-        return "redirect:/list";
-    }
+	@RequestMapping("/add")
+	public String add(@Valid UserParam userParam, BindingResult result, ModelMap model) {
+		String errorMsg = "";
+		if (result.hasErrors()) {
+			List<ObjectError> list = result.getAllErrors();
+			for (ObjectError error : list) {
+				errorMsg = errorMsg + error.getCode() + "-" + error.getDefaultMessage() + ";";
+			}
+			model.addAttribute("errorMsg", errorMsg);
+			return "user/userAdd";
+		}
+		User u = userRepository.findByUserNameOrEmail(userParam.getUserName(), userParam.getEmail());
+		if (u != null) {
+			model.addAttribute("errorMsg", "用户已存在!");
+			return "user/userAdd";
+		}
+		User user = new User();
+		BeanUtils.copyProperties(userParam, user);
+		user.setRegTime(new Date());
+		user.setUserType("user");
+		userRepository.save(user);
+		return "redirect:/list";
+	}
 
-    @RequestMapping("/toEdit")
-    public String toEdit(Model model,String id) {
-        User user=userRepository.findById(id).get();
-        model.addAttribute("user", user);
-        return "user/userEdit";
-    }
+	@RequestMapping("/toEdit")
+	public String toEdit(Model model, String id) {
+		User user = userRepository.findById(id).get();
+		model.addAttribute("user", user);
+		return "user/userEdit";
+	}
 
-    @RequestMapping("/edit")
-    public String edit(@Valid UserParam userParam, BindingResult result,ModelMap model) {
-        String errorMsg="";
-        if(result.hasErrors()) {
-            List<ObjectError> list = result.getAllErrors();
-            for (ObjectError error : list) {
-                errorMsg=errorMsg + error.getCode() + "-" + error.getDefaultMessage() +";";
-            }
-            model.addAttribute("errorMsg",errorMsg);
-            model.addAttribute("user", userParam);
-            return "user/userEdit";
-        }
+	@RequestMapping("/edit")
+	public String edit(@Valid UserParam userParam, BindingResult result, ModelMap model) {
+		String errorMsg = "";
+		if (result.hasErrors()) {
+			List<ObjectError> list = result.getAllErrors();
+			for (ObjectError error : list) {
+				errorMsg = errorMsg + error.getCode() + "-" + error.getDefaultMessage() + ";";
+			}
+			model.addAttribute("errorMsg", errorMsg);
+			model.addAttribute("user", userParam);
+			return "user/userEdit";
+		}
 
-        User user=userRepository.findById(userParam.getId()).get();
-        BeanUtils.copyProperties(userParam,user);
-        user.setRegTime(new Date());
-        userRepository.save(user);
-        return "redirect:/list";
-    }
+		User user = userRepository.findById(userParam.getId()).get();
+		BeanUtils.copyProperties(userParam, user);
+		user.setRegTime(new Date());
+		userRepository.save(user);
+		return "redirect:/list";
+	}
 
-    @RequestMapping("/delete")
-    public String delete(String id) {
-        userRepository.deleteById(id);
-        return "redirect:/list";
-    }
+	@RequestMapping("/delete")
+	public String delete(String id) {
+		userRepository.deleteById(id);
+		return "redirect:/list";
+	}
+	
 }

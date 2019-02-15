@@ -8,11 +8,18 @@ import com.spring.boot.model.User;
 
 import java.util.Optional;
 
-public interface UserRepository  extends MongoRepository<User, String> {
-    Page<User> findAll(Pageable pageable);
-    Optional<User> findById(String id);
-    User findByUserNameOrEmail(String userName, String email);
-    User findByUserName(String userName);
-    User findByEmail(String email);
-    void deleteById(String id);
+public interface UserRepository extends MongoRepository<User, String> {
+
+	Page<User> findAll(Pageable pageable);
+
+	Optional<User> findById(String id);
+
+	User findByUserNameOrEmail(String userName, String email);
+
+	User findByUserName(String userName);
+
+	User findByEmail(String email);
+
+	void deleteById(String id);
+
 }

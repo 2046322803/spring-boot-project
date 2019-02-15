@@ -5,16 +5,16 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 
-
 @SpringBootApplication
 public class UserManageApplication extends SpringBootServletInitializer {
-    @Override
-    protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
-        return application.sources(UserManageApplication.class);
-    }
+	
+	@Override
+	protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
+		return application.sources(UserManageApplication.class);
+	}
 
-    public static void main(String[] args) throws Exception {
-        SpringApplication.run(UserManageApplication.class, args);
-    }
+	public static void main(String[] args) throws Exception {
+		SpringApplication.run(UserManageApplication.class, args);
+	}
+	
 }
-
