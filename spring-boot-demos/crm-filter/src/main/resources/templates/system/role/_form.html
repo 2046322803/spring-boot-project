@@ -1,0 +1,66 @@
+<input type="hidden" name="id" value="${(role.id)!}" />
+<div class="form-group">
+  <label for="title" class="col-sm-2 control-label">Code</label>
+  <div class="col-sm-8">
+    <input type="text" class="form-control" id="code" name="code" placeholder="please input code" required="" value="${(role.code)!}">
+  </div>
+  <div class="col-sm-2"></div>
+</div>
+<div class="form-group">
+  <label for="content" class="col-sm-2 control-label">Name</label>
+  <div class="col-sm-8">
+    <input type="text" class="form-control" id="name" name="name" placeholder="please input name" required="" value="${(role.name)!}">
+  </div>
+  <div class="col-sm-2"></div>
+</div>
+<div class="form-group">
+  <label for="content" class="col-sm-2 control-label">Menu</label>
+  <div class="col-sm-8">
+    <#list menuList as menu>
+      <#if (menu.parentId)?exists>
+      <#else>
+      	<#if (menu_index > 0)><br></#if>
+      </#if>
+   	  <label class="checkbox-inline">
+	    <input type="checkbox" id="menu_${menu.id}" name="menus" value="${menu.id}" 
+	    <#if rmList?exists>
+	      <#list rmList as rm>
+	        <#if (rm)?exists && rm.pk.menuId == menu.id>checked</#if>
+          </#list> 
+        </#if>
+      > ${menu.name}
+	  </label>
+    </#list>
+  </div>
+  <div class="col-sm-2"></div>
+</div>
+<div class="form-group">
+  <label for="content" class="col-sm-2 control-label">Operate</label>
+  <div class="col-sm-8">
+    <#list operateList as operate>
+      <#if (operate.parentId)?exists>
+   	    <label class="checkbox-inline">
+	      <input type="checkbox" id="operate_${operate.id}" name="operates" value="${operate.id}" 
+	        <#if roList?exists>
+	          <#list roList as ro>
+	            <#if (ro)?exists && ro.pk.operateId == operate.id>checked</#if>
+              </#list> 
+            </#if>
+	        > ${operate.name}
+        </label>
+      <#else>
+        <#if (operate_index > 0)><br></#if>
+        <label class="checkbox-inline"><input type="checkbox" id="operate_${operate.id}" disabled="disabled">${operate.name}</label><br>
+      </#if>
+   	</#list>
+  </div>
+  <div class="col-sm-2"></div>
+</div>
+<div class="form-group">
+  <div class="col-sm-offset-2 col-sm-10">
+    <button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-save"></span> Save</button>
+    <button type="button" class="btn btn-default" onclick="window.location.href='/system/role/list/1'">
+      <span class="glyphicon glyphicon-remove-sign"></span> Cancel
+    </button>
+  </div>
+</div>

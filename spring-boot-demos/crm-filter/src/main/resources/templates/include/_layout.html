@@ -1,0 +1,67 @@
+<#macro layout mainMenu currentMenu>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>ZUK_CRM</title>
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/home.css" rel="stylesheet">
+  </head>
+  <body>
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#example-navbar-collapse">
+            <span class="sr-only">Handover navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/home">ZUK_CRM</a>
+        </div>
+        <div class="collapse navbar-collapse" id="example-navbar-collapse">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="/system/user/edit/${(Session["aclBean"].userId)!}"><span class="glyphicon glyphicon-user"></span> ${(Session["aclBean"].userName)!}</a></li>
+            <li><a href="/about"><span class="glyphicon glyphicon-info-sign"></span> about</a></li>
+            <li><a href="http://www.baidu.com" target="_blank"><span class="glyphicon glyphicon-question-sign"></span> help</a></li>
+            <li><a href="/logout"><span class="glyphicon glyphicon-log-out"></span> logout</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-3 col-md-2 sidebar">
+          <div class="panel-group" id="accordion">
+          	<#list (Session["aclBean"].pmenuList)?sort_by(["sort"]) as pmenu>
+          	  <div class="panel panel-default">
+			    <div class="panel-heading">
+			      <h4 class="panel-title" data-toggle="collapse" data-parent="#accordion" data-target ="#collapse_${pmenu.id}"><span class="${(pmenu.icon)!}"></span> ${pmenu.name}</h4>
+			    </div>
+		        <div id="collapse_${pmenu.id}" <#if mainMenu == pmenu.code>class="panel-collapse collapse in"<#else>class="panel-collapse collapse"</#if>>
+			      <div class="panel-body">
+			        <ul class="nav nav-sidebar">
+          	          <#list (Session["aclBean"].cmenuList)?sort_by(["sort"]) as cmenu>
+          	          	<#if pmenu.id == cmenu.parentId>
+            		      <li <#if currentMenu == cmenu.code>class="active"</#if>><a href="${cmenu.href}"><span class="${(cmenu.icon)!}"></span> ${cmenu.name}</a></li>
+          	          	</#if>
+          	          </#list>
+          		    </ul>
+			      </div>
+		        </div>
+		      </div>
+          	</#list>
+		  </div>
+        </div>
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+			<#nested>
+        </div>
+      </div>
+    </div>
+    <script src="/js/jquery-1.11.3.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+  </body>
+</html>
+</#macro>

@@ -1,0 +1,61 @@
+<#include "/include/_layout.html"/>
+<@layout mainMenu="system" currentMenu="menu">
+<ol class="breadcrumb">
+  <li><span class="glyphicon glyphicon-home"></span> <a href="/home">Home</a></li>
+  <li class="active"><span class="glyphicon glyphicon-list"></span> Menu</li>
+</ol>
+
+<form class="form-inline" role="form">
+   <div class="form-group">
+      <label for="id">Code</label>
+      <input type="text" class="form-control" id="code" name="code" placeholder="please input code">
+      <label for="name">Name</label>
+      <input type="text" class="form-control" id="name" name="name" placeholder="please input name">
+   </div>
+   <button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search"></span> Search</button>
+</form>
+
+<div class="btn-toolbar" role="toolbar" style="padding: 10px 0 5px 0;">
+  <div class="btn-group">
+    <button type="button" class="btn btn-default" onclick="window.location.href='/system/menu/add'">
+      <span class="glyphicon glyphicon-plus-sign"></span> Add
+    </button>
+  </div>
+  <div class="btn-group">
+    <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-import"></span> Import</button>
+    <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-export"></span> Export</button>
+  </div>
+</div>
+
+<div class="table-responsive">
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>CODE</th>
+        <th>NAME</th>
+        <th>URL</th>
+        <th>SORT</th>
+        <th>OPERATE</th>
+      </tr>
+    </thead>
+    <tbody>
+    <#list menuPage.getContent() as x>
+      <tr>
+        <td>${x.id}</td>
+        <td>${(x.code)!}</td>
+        <td><#if (x.parent_id)?exists>&nbsp;--&nbsp;</#if>${x.name}</td>
+        <td>${(x.href)!}</td>
+        <td>${(x.sort)!}</td>
+        <td>
+	      <a href="/system/menu/edit/${x.id}"><span class="glyphicon glyphicon-edit"></span> Edit</a>
+          <a href="/system/menu/delete/${x.id}"><span class="glyphicon glyphicon-remove"></span> Delete</a>
+        </td>
+      </tr>
+	</#list>
+    </tbody>
+  </table>
+  <#include "/include/_paginate.html" />
+  <@paginate currentPage=menuPage.getNumber() + 1 totalPage=menuPage.getTotalPages() actionUrl="/system/menu/list/" />
+</div>
+</@layout>

@@ -16,5 +16,6 @@
 		<module>user-manage-plus</module>
 		<module>crm-security</module>
 		<module>crm-shiro</module>
+		<module>crm-filter</module>
 	</modules>
 </project>

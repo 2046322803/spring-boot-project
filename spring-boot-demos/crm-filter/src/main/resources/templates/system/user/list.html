@@ -1,0 +1,68 @@
+<#include "/include/_layout.html"/>
+<@layout mainMenu="system" currentMenu="user">
+<ol class="breadcrumb">
+  <li><span class="glyphicon glyphicon-home"></span> <a href="/home">Home</a></li>
+  <li class="active"><span class="glyphicon glyphicon-list"></span> User</li>
+</ol>
+
+<form class="form-inline" role="form">
+   <div class="form-group">
+      <label for="role_id">Role</label>
+      <select class="form-control" id="role_id" name="roleId">
+	    <option value="">please select</option>
+	    <#list roleList as role>
+	      <option value="${role.id}">${role.name}</option>
+	    </#list>
+      </select>
+      <label for="userName">Name</label>
+      <input type="text" class="form-control" id="name" name="name" placeholder="please input name">
+   </div>
+   <button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search"></span> Search</button>
+</form>
+
+<div class="btn-toolbar" role="toolbar" style="padding: 10px 0 5px 0;">
+  <div class="btn-group">
+    <button type="button" class="btn btn-default" onclick="window.location.href='/system/user/add'">
+      <span class="glyphicon glyphicon-plus-sign"></span> Add
+    </button>
+  </div>
+  <div class="btn-group">
+    <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-import"></span> Import</button>
+    <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-export"></span> Export</button>
+  </div>
+</div>
+
+<div class="table-responsive">
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>ROLENAME</th>
+        <th>NAME</th>
+        <th>EMAIL</th>
+        <th>PASSWORD</th>
+        <th>PICTURE</th>
+        <th>OPERATE</th>
+      </tr>
+    </thead>
+    <tbody>
+    <#list userPage.getContent() as x>
+      <tr>
+        <td>${x.id}</td>
+        <td>${x.roleId}</td>
+        <td>${x.name}</td>
+        <td>${x.email}</td>
+        <td>${x.password}</td>
+        <td><img alt="" src="${x.picture!}" class="img-rounded" width="50px" height="50px"></td>
+        <td>
+	      <a href="/system/user/edit/${x.id}"><span class="glyphicon glyphicon-edit"></span> Edit</a>
+          <a href="/system/user/delete/${x.id}"><span class="glyphicon glyphicon-remove"></span> Delete</a>
+        </td>
+      </tr>
+	</#list>
+    </tbody>
+  </table>
+  <#include "/include/_paginate.html" />
+  <@paginate currentPage=userPage.getNumber() + 1 totalPage=userPage.getTotalPages() actionUrl="/system/user/list/" />
+</div>
+</@layout>

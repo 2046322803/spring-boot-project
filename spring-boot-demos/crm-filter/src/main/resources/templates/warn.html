@@ -1,0 +1,11 @@
+<#include "/include/_layout.html"/>
+<@layout mainMenu="help" currentMenu="help">
+<ol class="breadcrumb">
+  <li><span class="glyphicon glyphicon-home"></span> <a href="/index">Home</a></li>
+  <li class="active"><span class="glyphicon glyphicon-exclamation-sign"></span> Warn</li>
+</ol>
+<div class="alert alert-warning">
+  <p><strong>Warning!</strong> Sorry, you do not have the right to operate.</p>
+  <p><a class="btn btn-default" role="button" onclick="history.go(-1)">Return back</a></p>
+</div>
+</@layout>
