@@ -13,12 +13,12 @@
       <form class="form-signin" action="/login" method="post">
         <h2 class="form-signin-heading">ZUK_CRM</h2>
         <label for="inputName" class="sr-only">User name</label>
-        <input type="text" id="inputName" name="name" value="" class="form-control" placeholder="Name" required autofocus>
+        <input type="text" id="inputName" name="username" value="" class="form-control" placeholder="Username" required autofocus>
         <label for="inputPassword" class="sr-only">Password</label>
         <input type="password" id="inputPassword" name="password" value="" class="form-control" placeholder="Password" required>
         <div class="checkbox">
           <label>
-            <input type="checkbox" id="remember_me" name="remember-me" checked> Remember login status
+            <input type="checkbox" id="remember_me" name="rememberMe" checked> Remember login status
           </label>
         </div>
         <#if (errorMsg)?exists>

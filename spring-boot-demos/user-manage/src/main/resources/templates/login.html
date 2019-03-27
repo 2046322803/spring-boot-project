@@ -10,7 +10,7 @@
 <h1>登录</h1>
 <br/><br/>
 <div class="with:60%">
-    <div style="margin: 10px 90px;">没有账户？先去<a  th:href="@{/toRegister}">注册</a></div>
+    <div style="margin: 10px 90px;">没有账户？先去<a th:href="@{/toRegister}">注册</a></div>
 
     <form class="form-horizontal"   th:action="@{/login}"  method="post" >
         <div class="form-group">`
@@ -29,9 +29,7 @@
         <div class="form-group">
             <label   class="col-sm-2 control-label"></label>
             <div class="col-sm-6">
-                <div th:if="${errorMsg != null}"  class="alert alert-danger" role="alert" th:text="${errorMsg}">
-
-                </div>
+                <div th:if="${errorMsg != null}"  class="alert alert-danger" role="alert" th:text="${errorMsg}"></div>
             </div>
         </div>
 

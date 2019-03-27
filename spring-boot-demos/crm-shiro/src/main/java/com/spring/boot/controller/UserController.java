@@ -3,6 +3,9 @@ package com.spring.boot.controller;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 
+import org.apache.shiro.crypto.hash.Md5Hash;
+import org.apache.shiro.crypto.hash.SimpleHash;
+import org.apache.shiro.util.ByteSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -60,7 +63,11 @@ public class UserController {
 			}
 		}
 		user.setPicture(picture);
-		user.setPassword(user.getPassword());
+		
+		ByteSource salt = new Md5Hash(user.getName());
+		String password = new SimpleHash("MD5", user.getPassword(), salt).toString();
+		user.setPassword(password);
+		
 		userService.merge(user);
 		return "redirect:/system/user/list/1";
 	}

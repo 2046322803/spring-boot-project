@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
-import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
@@ -39,8 +38,6 @@ import com.spring.boot.entity.User;
  *        Inc.All right reserved.
  **/
 public class ShiroRealm extends AuthorizingRealm {
-
-	public static String REALM_NAME = "ShiroRealm";
 
 	@Autowired
 	private UserDao userDao;
@@ -81,11 +78,6 @@ public class ShiroRealm extends AuthorizingRealm {
 		if (null == user) {
 			throw new UnknownAccountException("This username: " + username + " is not exist");
 		}
-
-		/*
-		 * if (user.getStatus() != null && user.getStatus() == 0) { throw new
-		 * LockedAccountException(); }
-		 */
 
 		Optional<Role> role = roleDao.findById(user.getRoleId());
 		String roleName = role.get().getCode();
@@ -149,7 +141,4 @@ public class ShiroRealm extends AuthorizingRealm {
 		return info;
 	}
 
-	public void clearAuthz() {
-		this.clearCachedAuthorizationInfo(SecurityUtils.getSubject().getPrincipals());
-	}
 }

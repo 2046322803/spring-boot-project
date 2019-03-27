@@ -1,72 +1,76 @@
 package com.spring.boot.configuration;
 
-import java.util.LinkedHashMap;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
-import org.apache.shiro.mgt.SecurityManager;
-import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
-import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
-import org.springframework.beans.factory.annotation.Value;
+import org.apache.shiro.cache.CacheManager;
+import org.apache.shiro.cache.MemoryConstrainedCacheManager;
+import org.apache.shiro.realm.Realm;
+import org.apache.shiro.spring.web.config.DefaultShiroFilterChainDefinition;
+import org.apache.shiro.spring.web.config.ShiroFilterChainDefinition;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.util.StringUtils;
 
+import com.spring.boot.dao.OperateDao;
+import com.spring.boot.entity.Operate;
 import com.spring.boot.shiro.ShiroRealm;
 
 @Configuration
 public class ShiroConfiguration {
 
-	@Value("${auth.allowed.resource.prefix}")
-	private String allowedResourcePrefix;
+	@Autowired
+	private OperateDao operateDao;
 
-	@Value("${auth.denied.resource.prefix}")
-	private String deniedResourcePrefix;
-
-	/**
-	 * shiro 权限拦截
-	 * 
-	 * @param securityManager
-	 * @return
-	 */
 	@Bean
-	public ShiroFilterFactoryBean shiroFilter(SecurityManager securityManager) {
-		ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();
-
-		// 必须设置 SecurityManager
-		shiroFilterFactoryBean.setSecurityManager(securityManager);
-		// 如果不设置默认会自动寻找Web工程根目录下的"/login.jsp"页面
-		shiroFilterFactoryBean.setLoginUrl("/login");
-		// 登录成功后要跳转的链接
-		shiroFilterFactoryBean.setSuccessUrl("/home");
-		// 未授权界面
-		shiroFilterFactoryBean.setUnauthorizedUrl("/warn");
-
-		// 拦截器
-		Map<String, String> filterChainDefinitionMap = new LinkedHashMap<String, String>();
-
-		// <!-- anon:所有url都都可以匿名访问；authc:所有url都必须认证通过才可以访问；-->
-		for (String prefix : allowedResourcePrefix.split(";")) {
-			filterChainDefinitionMap.put(prefix, "anon");
-		}
-
-		for (String prefix : deniedResourcePrefix.split(";")) {
-			filterChainDefinitionMap.put(prefix, "authc");
-		}
-		shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
-
-		return shiroFilterFactoryBean;
+	public Realm realm() {
+		return new ShiroRealm();
 	}
 
 	@Bean
-	public SecurityManager securityManager() {
-		DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
-		securityManager.setRealm(shiroRealm());
-		return securityManager;
+	public ShiroFilterChainDefinition shiroFilterChainDefinition() {
+		DefaultShiroFilterChainDefinition chainDefinition = new DefaultShiroFilterChainDefinition();
+
+		chainDefinition.addPathDefinition("/js/**", "anon");
+		chainDefinition.addPathDefinition("/css/**", "anon");
+		chainDefinition.addPathDefinition("/images/**", "anon");
+		chainDefinition.addPathDefinition("/fonts/**", "anon");
+		chainDefinition.addPathDefinition("/**/favicon.ico", "anon");
+
+		Map<String, String> pathDefinitions = new HashMap<String, String>();
+		List<Operate> operateList = operateDao.findAll();
+		for (Operate operate : operateList) {
+			if (!StringUtils.isEmpty(operate.getHref())) {
+				pathDefinitions.put(operate.getHref(), "authc, perms[" + operate.getHref() + "]");
+			}
+		}
+		chainDefinition.addPathDefinitions(pathDefinitions);
+		chainDefinition.addPathDefinition("/**", "authc");
+
+		// all paths are managed via annotations
+		// chainDefinition.addPathDefinition("/**", "anon");
+
+		// or allow basic authentication, but NOT require it.
+		// chainDefinition.addPathDefinition("/**", "authcBasic[permissive]");
+
+		// 三种方式实现定义权限路径
+		// 第一种:使用角色名定义
+		// chainDefinition.addPathDefinition("/admin/**", "authc, roles[admin]");
+
+		// 第二种:使用权限code定义
+		// chainDefinition.addPathDefinition("/docs/**", "authc, perms[document:read]");
+
+		// 第三种:使用接口的自定义配置(此处配置之后需要在对应的接口使用@RequiresPermissions(""))
+		// chainDefinition.addPathDefinition("/**", "authc");
+
+		return chainDefinition;
 	}
 
 	@Bean
-	public ShiroRealm shiroRealm() {
-		ShiroRealm shiroRealm = new ShiroRealm();
-		return shiroRealm;
+	protected CacheManager cacheManager() {
+		return new MemoryConstrainedCacheManager();
 	}
 
 }
