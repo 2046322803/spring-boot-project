@@ -30,13 +30,6 @@ import com.spring.boot.entity.Operate;
 import com.spring.boot.entity.Role;
 import com.spring.boot.entity.User;
 
-/**
- * 授权认证的Realm实现
- *
- * @author Larry.lv
- * @since 1.0.0 Create Date 2018-05-11 17:17 Copyright © 1985-2018 ZKTeco
- *        Inc.All right reserved.
- **/
 public class ShiroRealm extends AuthorizingRealm {
 
 	@Autowired
@@ -96,7 +89,9 @@ public class ShiroRealm extends AuthorizingRealm {
 			}
 			List<Operate> operateList = operateDao.findAll();
 			for (Operate operate : operateList) {
-				operateSet.add(operate.getHref());
+				if (!StringUtils.isEmpty(operate.getHref())) {
+					operateSet.add(StringUtils.replace(operate.getHref(), "/**", ""));
+				}
 			}
 		} else {
 			List<Menu> menuList = roleMenuDao.queryMenuByRoleId(role.get().getId());
@@ -109,7 +104,9 @@ public class ShiroRealm extends AuthorizingRealm {
 			}
 			List<Operate> operateList = roleOperateDao.queryOperateByRoleId(role.get().getId());
 			for (Operate operate : operateList) {
-				operateSet.add(operate.getHref());
+				if (!StringUtils.isEmpty(operate.getHref())) {
+					operateSet.add(StringUtils.replace(operate.getHref(), "/**", ""));
+				}
 			}
 		}
 

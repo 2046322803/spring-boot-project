@@ -43,7 +43,8 @@ public class ShiroConfiguration {
 		List<Operate> operateList = operateDao.findAll();
 		for (Operate operate : operateList) {
 			if (!StringUtils.isEmpty(operate.getHref())) {
-				pathDefinitions.put(operate.getHref(), "authc, perms[" + operate.getHref() + "]");
+				pathDefinitions.put(operate.getHref(),
+						"authc, perms[" + StringUtils.replace(operate.getHref(), "/**", "") + "]");
 			}
 		}
 		chainDefinition.addPathDefinitions(pathDefinitions);
