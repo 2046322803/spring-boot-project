@@ -2,6 +2,9 @@ package com.spring.boot.controller;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.io.OutputStream;
+
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.shiro.crypto.hash.Md5Hash;
 import org.apache.shiro.crypto.hash.SimpleHash;
@@ -63,11 +66,11 @@ public class UserController {
 			}
 		}
 		user.setPicture(picture);
-		
+
 		ByteSource salt = new Md5Hash(user.getName());
 		String password = new SimpleHash("MD5", user.getPassword(), salt).toString();
 		user.setPassword(password);
-		
+
 		userService.merge(user);
 		return "redirect:/system/user/list/1";
 	}
@@ -95,6 +98,23 @@ public class UserController {
 	public String delete(Model model, @PathVariable String id) {
 		userService.delete(id);
 		return "redirect:/system/user/list/1";
+	}
+
+	@RequestMapping("/export")
+	public void export(@RequestParam(required = false) String roleId, @RequestParam(required = false) String name,
+			HttpServletResponse response) {
+		try {
+			String fileName = "Excel-" + String.valueOf(System.currentTimeMillis()).substring(4, 13) + ".xlsx";
+			String headStr = "attachment; filename=\"" + fileName + "\"";
+			response.setContentType("APPLICATION/OCTET-STREAM");
+			response.setHeader("Content-Disposition", headStr);
+			OutputStream os = null;
+			os = response.getOutputStream();
+			userService.export(roleId, name, os);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
 	}
 
 }

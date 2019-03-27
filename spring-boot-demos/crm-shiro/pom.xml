@@ -13,6 +13,9 @@
 	<properties>
 		<shiro.version>1.4.0</shiro.version>
 		<shiro-redis.version>3.2.2</shiro-redis.version>
+
+		<poi.version>4.0.1</poi.version>
+		<poi-ooxml.version>4.0.1</poi-ooxml.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -36,7 +39,6 @@
 			<artifactId>spring-boot-starter-cache</artifactId>
 		</dependency>
 
-
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
@@ -46,17 +48,33 @@
 			<artifactId>commons-pool2</artifactId>
 		</dependency>
 
+		<!-- java操作excel常用的两种方式，分别为：jxl和poi。 -->
+		<!-- 在小数据量时jxl快于poi，在大数据量时poi要快于jxl。但差距都不明显。 -->
+		<!-- Apache POI是Apache软件基金会的开放源码函式库，POI提供API给Java程序对Microsoft Office格式档案读和写的功能。 -->
+		<!-- Excel共有两种格式：xls（03版本）和xlsx（07及之后版本）。POI提供了两个对应接口类，分别为：HSSFWorkbook和XSSFWorkbook。 -->
 		<dependency>
-			<groupId>org.apache.shiro</groupId>
-			<artifactId>shiro-spring-boot-web-starter</artifactId>
-			<version>${shiro.version}</version>
+			<!-- 引入HSSFWorkbook -->
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi</artifactId>
+			<version>${poi.version}</version>
 		</dependency>
-
+		<dependency>
+			<!-- 引入XSSFWorkbook -->
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi-ooxml</artifactId>
+			<version>${poi-ooxml.version}</version>
+		</dependency>
 
 		<dependency>
 			<groupId>com.zuk.storage.cos</groupId>
 			<artifactId>zuk-storage-cos</artifactId>
 			<version>1.0.0-SNAPSHOT</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.apache.shiro</groupId>
+			<artifactId>shiro-spring-boot-web-starter</artifactId>
+			<version>${shiro.version}</version>
 		</dependency>
 	</dependencies>
 	<build>

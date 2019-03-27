@@ -14,6 +14,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
@@ -41,6 +42,7 @@ public class UserServiceImpl implements UserService {
 			User user = new User();
 			user.setName("super");
 			user.setPassword("123456");
+			user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
 			user.setEmail("super@bsp.com");
 			String roleId = roleDao.findByCode("SUPER").getId();
 			user.setRoleId(roleId);

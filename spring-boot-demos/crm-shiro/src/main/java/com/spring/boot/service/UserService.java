@@ -1,5 +1,7 @@
 package com.spring.boot.service;
 
+import java.io.OutputStream;
+
 import org.springframework.ui.Model;
 
 import com.spring.boot.entity.User;
@@ -17,5 +19,7 @@ public interface UserService {
 	void merge(User user);
 
 	void delete(String id);
+
+	void export(String roleId, String name, OutputStream os);
 
 }
