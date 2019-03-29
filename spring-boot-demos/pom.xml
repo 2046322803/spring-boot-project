@@ -17,5 +17,6 @@
 		<module>crm-security</module>
 		<module>crm-shiro</module>
 		<module>crm-filter</module>
+		<module>blog</module>
 	</modules>
 </project>
