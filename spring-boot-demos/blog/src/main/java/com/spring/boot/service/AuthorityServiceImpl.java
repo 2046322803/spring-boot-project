@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.spring.boot.service;
 
 import java.util.Optional;
@@ -10,7 +7,6 @@ import org.springframework.stereotype.Service;
 
 import com.spring.boot.domain.Authority;
 import com.spring.boot.repository.AuthorityRepository;
-
 
 /**
  * Authority 服务接口的实现.
@@ -23,7 +19,7 @@ public class AuthorityServiceImpl implements AuthorityService {
 
 	@Autowired
 	private AuthorityRepository authorityRepository;
-
+	
 	@Override
 	public Optional<Authority> getAuthorityById(Long id) {
 		return authorityRepository.findById(id);
