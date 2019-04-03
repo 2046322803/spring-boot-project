@@ -19,6 +19,7 @@ public class Application extends SpringBootServletInitializer {
 		return builder.sources(Application.class);
 	}
 
+	// HTTP自动转向HTTPS start
 	@Bean
 	public TomcatServletWebServerFactory servletContainer() {
 		TomcatServletWebServerFactory tomcat = new TomcatServletWebServerFactory() {
@@ -47,6 +48,7 @@ public class Application extends SpringBootServletInitializer {
 		connector.setRedirectPort(8443);
 		return connector;
 	}
+	// HTTP自动转向HTTPS end
 
 	public static void main(String[] args) throws Exception {
 		SpringApplication.run(Application.class, args);
