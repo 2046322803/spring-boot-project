@@ -30,6 +30,12 @@ public class LoginController {
 		model.addAttribute("errorMsg", "登录失败");
 		return "login";
 	}
+	
+	@RequestMapping("/validate")
+	public String validate(ModelMap model) {
+		model.addAttribute("errorMsg", "验证码不正确");
+		return "login";
+	}
 
 	@RequestMapping("/logout")
 	public String logout() {

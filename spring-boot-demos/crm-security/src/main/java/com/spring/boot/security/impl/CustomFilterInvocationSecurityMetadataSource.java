@@ -42,7 +42,7 @@ public class CustomFilterInvocationSecurityMetadataSource implements FilterInvoc
 
 		// 如果登录页面就不需要权限
 		if ("/login".equals(requestUrl) || "/wrong".equals(requestUrl) || "/forbid".equals(requestUrl)
-				|| "/failure".equals(requestUrl)) {
+				|| "/validate".equals(requestUrl) || "/failure".equals(requestUrl)) {
 			return null;
 		}
 

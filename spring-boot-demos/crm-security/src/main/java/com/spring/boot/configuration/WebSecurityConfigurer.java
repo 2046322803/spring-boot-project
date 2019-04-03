@@ -39,8 +39,11 @@ import org.springframework.security.web.access.intercept.FilterInvocationSecurit
 import org.springframework.security.web.access.intercept.FilterSecurityInterceptor;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.security.web.util.matcher.RequestMatcher;
+
+import com.spring.boot.security.filter.KaptchaAuthenticationFilter;
 
 /**
  * 继承WebSecurityConfigurerAdapter适配器且重写configure函数来实现访问的控制（那些访问/资源需要哪些权限）和登录的验证（数据库验证/内存验证）
@@ -87,7 +90,8 @@ public class WebSecurityConfigurer extends WebSecurityConfigurerAdapter {
 	 */
 	@Override
 	public void configure(WebSecurity web) throws Exception {
-		web.ignoring().antMatchers("/js/**", "/css/**", "/images/**", "/fonts/**", "/**/favicon.ico");
+		web.ignoring().antMatchers("/js/**", "/css/**", "/images/**", "/fonts/**", "/**/favicon.ico",
+				"/getKaptchaImage");
 	}
 
 	/**
@@ -118,7 +122,9 @@ public class WebSecurityConfigurer extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 
-		http.authorizeRequests()// 限定只对签名成功的用户请求
+		// 在认证用户名之前认证验证码，如果验证码错误，将不执行用户名和密码的认证
+		http.addFilterBefore(new KaptchaAuthenticationFilter("/login", "/validate"),
+				UsernamePasswordAuthenticationFilter.class).authorizeRequests()// 限定只对签名成功的用户请求
 				// .antMatchers("/static/**")
 				// .permitAll()// 允许所有人访问
 				// .anyRequest()// 限定所有请求
