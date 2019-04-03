@@ -9,18 +9,16 @@ import com.spring.boot.entity.Menu;
 
 public interface MenuService {
 
-	void init();
-	
 	Menu get(String id);
-	
+
 	void merge(Menu menu);
-	
+
 	void delete(String id);
-	
+
 	List<Menu> list();
 
 	Page<Menu> listPage(Pageable pageable);
 
 	List<Menu> listParent();
-	
+
 }

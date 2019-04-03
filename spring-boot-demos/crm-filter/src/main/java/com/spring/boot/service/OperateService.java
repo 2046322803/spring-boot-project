@@ -9,8 +9,6 @@ import com.spring.boot.entity.Operate;
 
 public interface OperateService {
 
-	void init();
-	
 	Operate get(String id);
 
 	void merge(Operate operate);

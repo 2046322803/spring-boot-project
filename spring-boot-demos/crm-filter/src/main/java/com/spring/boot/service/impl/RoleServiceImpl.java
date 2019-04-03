@@ -20,17 +20,6 @@ public class RoleServiceImpl implements RoleService {
 	private RoleDao roleDao;
 
 	@Override
-	public void init() {
-		long count = roleDao.count();
-		if (0L == count) {
-			Role role = new Role();
-			role.setCode("SUPER");
-			role.setName("超级管理员");
-			roleDao.save(role);
-		}
-	}
-
-	@Override
 	public void merge(Role role) {
 		roleDao.save(role);
 	}

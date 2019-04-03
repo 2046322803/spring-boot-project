@@ -56,20 +56,6 @@ public class UserServiceImpl implements UserService {
 	private RoleOperateDao roleOperateDao;
 
 	@Override
-	public void init() {
-		long count = userDao.count();
-		if (0L == count) {
-			User user = new User();
-			user.setName("super");
-			user.setPassword("123456");
-			user.setEmail("super@bsp.com");
-			String roleId = roleDao.findByCode("SUPER").getId();
-			user.setRoleId(roleId);
-			user = userDao.save(user);
-		}
-	}
-
-	@Override
 	public AclBean validate(User user) {
 		User ruser = userDao.findByNameAndPassword(user.getName(), user.getPassword());
 		if (ruser == null) {

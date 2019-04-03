@@ -7,8 +7,6 @@ import com.spring.boot.entity.User;
 
 public interface UserService {
 
-	void init();
-
 	AclBean validate(User user);
 
 	void listPage(Model model, Integer page, String roleId, String name);

@@ -31,17 +31,6 @@
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
-	<!--注意： 这里必须要添加，否则各种依赖有问题 -->
-	<repositories>
-		<repository>
-			<id>spring-milestones</id>
-			<name>Spring Milestones</name>
-			<url>https://repo.spring.io/libs-milestone</url>
-			<snapshots>
-				<enabled>false</enabled>
-			</snapshots>
-		</repository>
-	</repositories>
 	<build>
 		<plugins>
 			<plugin>
@@ -50,4 +39,16 @@
 			</plugin>
 		</plugins>
 	</build>
+	<distributionManagement>
+		<repository>
+			<id>central</id>
+			<name>zuk-releases</name>
+			<url>http://192.168.213.3:8081/artifactory/springboot-mvn-internal-local</url>
+		</repository>
+		<snapshotRepository>
+			<id>snapshots</id>
+			<name>zuk-snapshots</name>
+			<url>http://192.168.213.3:8081/artifactory/springboot-mvn-internal-local</url>
+		</snapshotRepository>
+	</distributionManagement>
 </project>
